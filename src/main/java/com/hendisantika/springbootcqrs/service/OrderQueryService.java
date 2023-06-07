@@ -1,6 +1,7 @@
 package com.hendisantika.springbootcqrs.service;
 
 import com.hendisantika.springbootcqrs.dto.PurchaseOrderSummaryDto;
+import com.hendisantika.springbootcqrs.entity.PurchaseOrderSummary;
 import com.hendisantika.springbootcqrs.repository.PurchaseOrderSummaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,12 @@ public class OrderQueryService {
                 .stream()
                 .mapToDouble(PurchaseOrderSummary::getTotalSale)
                 .sum();
+    }
+
+    private PurchaseOrderSummaryDto entityToDto(PurchaseOrderSummary purchaseOrderSummary) {
+        PurchaseOrderSummaryDto dto = new PurchaseOrderSummaryDto();
+        dto.setState(purchaseOrderSummary.getState());
+        dto.setTotalSale(purchaseOrderSummary.getTotalSale());
+        return dto;
     }
 }
