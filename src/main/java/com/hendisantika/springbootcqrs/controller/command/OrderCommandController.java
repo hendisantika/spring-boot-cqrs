@@ -1,8 +1,11 @@
 package com.hendisantika.springbootcqrs.controller.command;
 
+import com.hendisantika.springbootcqrs.dto.OrderCommandDto;
 import com.hendisantika.springbootcqrs.service.OrderCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,4 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderCommandController {
 
     private final OrderCommandService orderCommandService;
+
+    @PostMapping("/sale")
+    public void placeOrder(@RequestBody OrderCommandDto dto) {
+        this.orderCommandService.createOrder(dto.getUserIndex(), dto.getProductIndex());
+    }
 }
