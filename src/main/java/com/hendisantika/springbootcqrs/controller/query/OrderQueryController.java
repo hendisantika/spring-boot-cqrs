@@ -5,6 +5,7 @@ import com.hendisantika.springbootcqrs.service.OrderQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +32,10 @@ public class OrderQueryController {
     @GetMapping("/summary")
     public List<PurchaseOrderSummaryDto> getSummary() {
         return this.orderQueryService.getSaleSummaryGroupByState();
+    }
+
+    @GetMapping("/summary/{state}")
+    public PurchaseOrderSummaryDto getStateSummary(@PathVariable String state) {
+        return this.orderQueryService.getSaleSummaryByState(state);
     }
 }
