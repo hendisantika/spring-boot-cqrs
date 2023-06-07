@@ -35,4 +35,11 @@ public class OrderQueryService {
                 .map(this::entityToDto)
                 .orElseGet(() -> new PurchaseOrderSummaryDto(state, 0));
     }
+
+    public double getTotalSale() {
+        return this.purchaseOrderSummaryRepository.findAll()
+                .stream()
+                .mapToDouble(PurchaseOrderSummary::getTotalSale)
+                .sum();
+    }
 }
