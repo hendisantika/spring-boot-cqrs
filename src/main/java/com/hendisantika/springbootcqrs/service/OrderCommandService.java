@@ -1,6 +1,7 @@
 package com.hendisantika.springbootcqrs.service;
 
 import com.hendisantika.springbootcqrs.entity.Product;
+import com.hendisantika.springbootcqrs.entity.PurchaseOrder;
 import com.hendisantika.springbootcqrs.entity.User;
 import com.hendisantika.springbootcqrs.repository.ProductRepository;
 import com.hendisantika.springbootcqrs.repository.PurchaseOrderRepository;
@@ -39,5 +40,12 @@ public class OrderCommandService {
     private void init() {
         this.users = this.userRepository.findAll();
         this.products = this.productRepository.findAll();
+    }
+
+    public void createOrder(int userIndex, int productIndex) {
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+        purchaseOrder.setProductId(this.products.get(productIndex).getId());
+        purchaseOrder.setUserId(this.users.get(userIndex).getId());
+        this.purchaseOrderRepository.save(purchaseOrder);
     }
 }
