@@ -1,5 +1,16 @@
 package com.hendisantika.springbootcqrs.service;
 
+import com.hendisantika.springbootcqrs.entity.Product;
+import com.hendisantika.springbootcqrs.entity.User;
+import com.hendisantika.springbootcqrs.repository.ProductRepository;
+import com.hendisantika.springbootcqrs.repository.PurchaseOrderRepository;
+import com.hendisantika.springbootcqrs.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-cqrs
@@ -10,8 +21,23 @@ package com.hendisantika.springbootcqrs.service;
  * Time: 10:35
  * To change this template use File | Settings | File Templates.
  */
-public interface OrderCommandService {
-    void createOrder(int userIndex, int productIndex);
+@Service
+@RequiredArgsConstructor
+public class OrderCommandService {
+    private static final long ORDER_CANCELLATION_WINDOW = 30;
 
-    void cancelOrder(long orderId);
+    private final UserRepository userRepository;
+
+    private final ProductRepository productRepository;
+
+    private final PurchaseOrderRepository purchaseOrderRepository;
+
+    private List<User> users;
+    private List<Product> products;
+
+    @PostConstruct
+    private void init() {
+        this.users = this.userRepository.findAll();
+        this.products = this.productRepository.findAll();
+    }
 }
