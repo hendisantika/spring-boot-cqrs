@@ -4,10 +4,7 @@ import com.hendisantika.springbootcqrs.dto.OrderCommandDto;
 import com.hendisantika.springbootcqrs.service.OrderCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,5 +27,10 @@ public class OrderCommandController {
     @PostMapping("/sale")
     public void placeOrder(@RequestBody OrderCommandDto dto) {
         this.orderCommandService.createOrder(dto.getUserIndex(), dto.getProductIndex());
+    }
+
+    @PutMapping("/cancel-order/{orderId}")
+    public void cancelOrder(@PathVariable long orderId) {
+        this.orderCommandService.cancelOrder(orderId);
     }
 }
