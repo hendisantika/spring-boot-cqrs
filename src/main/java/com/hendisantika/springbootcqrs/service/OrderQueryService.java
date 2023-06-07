@@ -29,4 +29,10 @@ public class OrderQueryService {
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
+
+    public PurchaseOrderSummaryDto getSaleSummaryByState(String state) {
+        return this.purchaseOrderSummaryRepository.findByState(state)
+                .map(this::entityToDto)
+                .orElseGet(() -> new PurchaseOrderSummaryDto(state, 0));
+    }
 }
