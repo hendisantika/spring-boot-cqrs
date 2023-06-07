@@ -38,4 +38,9 @@ public class OrderQueryController {
     public PurchaseOrderSummaryDto getStateSummary(@PathVariable String state) {
         return this.orderQueryService.getSaleSummaryByState(state);
     }
+
+    @GetMapping("/total-sale")
+    public Double getTotalSale() {
+        return this.orderQueryService.getTotalSale();
+    }
 }
